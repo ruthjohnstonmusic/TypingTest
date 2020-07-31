@@ -209,8 +209,7 @@ function displayName() {
     nameTen.innerText = highScoreNames[9] + " ";
 }
 
-//Set the initial top scores
-document.addEventListener("DOMContentLoaded", function(e) {
+function setInitScoreboard() {
     var loadTimer = setInterval(checkScoreBoard, 500);
     function checkScoreBoard() {
         var myEle = document.getElementById("one");
@@ -222,8 +221,12 @@ document.addEventListener("DOMContentLoaded", function(e) {
         else {
             checkScoreBoard();
         }
-    }
-    
+    } 
+}
+
+//Set the initial top scores
+document.addEventListener("DOMContentLoaded", function(e) {
+    setInitScoreboard();
 });
 
 // Event listeners for keyboard input and the reset button:
