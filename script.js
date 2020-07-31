@@ -210,9 +210,20 @@ function displayName() {
 }
 
 //Set the initial top scores
-document.addEventListener("DOMContentLoaded", function(e) { 
-    displayTopScore();
-    displayName();
+document.addEventListener("DOMContentLoaded", function(e) {
+    var loadTimer = setInterval(checkScoreBoard, 500);
+    function checkScoreBoard() {
+        var myEle = document.getElementById("one");
+        if (myEle) {
+            displayTopScore();
+            displayName();
+            clearInterval(loadTimer);
+        }
+        else {
+            checkScoreBoard();
+        }
+    }
+    
 });
 
 // Event listeners for keyboard input and the reset button:
