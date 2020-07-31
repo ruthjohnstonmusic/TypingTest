@@ -212,7 +212,7 @@ function displayName() {
 function setInitScoreboard() {
     var loadTimer = setInterval(checkScoreBoard, 500);
     function checkScoreBoard() {
-        var myEle = document.getElementById("one");
+        var myEle = document.getElementById("ten");
         if (myEle) {
             displayTopScore();
             displayName();
