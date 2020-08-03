@@ -27,7 +27,7 @@ function leadingZero(time) {
 // Add leading zero to millisecs 99 or below (purely for aesthetics):
 function leadingZeroMilliSecs(time) {
     if (time <= 99) {
-        time = "0" + time;
+        time = "0" + time/10;
     } else if (time > 99) { 
         time = time/10;
     }
