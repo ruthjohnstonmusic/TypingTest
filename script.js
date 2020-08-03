@@ -10,7 +10,7 @@ var timer = [0,0,0,0];
 var interval;
 var timerRunning = false;
 var finalTimeMilliseconds;
-var scoreBoard = [4560, 5460, 6230, 6780, 7680, 8620, 8870, 9043, 10100, 10250];
+var scoreBoard = [4560, 5460, 6230, 6780, 7680, 8620, 8870, 9040, 10100, 10250];
 var finalScoresArray = scoreBoard.map(msToTime);
 var highScoreNames = ["Helios", "Ripley", "Ruthpls", "Tommo", "Billy Wig", "Pockets", "Elvis", "Beyonce", "Gandalf", "Superman"];
 
