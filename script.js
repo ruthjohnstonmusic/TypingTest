@@ -132,7 +132,11 @@ function msToTime(s) {
 //Convert high score array elements into readable strings
 function displayTopScore() {
     function convertTopScore(t) {
-        let scoreTime = leadingZero(t[0]) + ":" + leadingZero(t[1]) + ":" + leadingZero(t[2]);
+        let msScore = leadingZero(t[2]);
+        if (msScore <= 99) {
+            msScore = "0" + msScore;
+        }
+        let scoreTime = leadingZero(t[0]) + ":" + leadingZero(t[1]) + ":" + msScore;
         return scoreTime;
     }
 
