@@ -3,26 +3,8 @@ const testArea = document.querySelector("#test-area");
 const originText = document.querySelector("#origin-text p").innerHTML;
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
-const scoreOne = document.querySelector("#one .score");
-const scoreTwo = document.querySelector("#two .score");
-const scoreThree = document.querySelector("#three .score");
-const scoreFour = document.querySelector("#four .score");
-const scoreFive = document.querySelector("#five .score");
-const scoreSix = document.querySelector("#six .score");
-const scoreSeven = document.querySelector("#seven .score");
-const scoreEight = document.querySelector("#eight .score");
-const scoreNine = document.querySelector("#nine .score");
-const scoreTen = document.querySelector("#ten .score");
-const nameOne = document.querySelector("#one .name");
-const nameTwo = document.querySelector("#two .name");
-const nameThree = document.querySelector("#three .name");
-const nameFour = document.querySelector("#four .name");
-const nameFive = document.querySelector("#five .name");
-const nameSix = document.querySelector("#six .name");
-const nameSeven = document.querySelector("#seven .name");
-const nameEight = document.querySelector("#eight .name");
-const nameNine = document.querySelector("#nine .name");
-const nameTen = document.querySelector("#ten .name");
+const scoreArr = document.querySelectorAll(".score");
+const nameArr = document.querySelectorAll(".name");
 
 var timer = [0,0,0,0];
 var interval;
@@ -76,7 +58,6 @@ function spellCheck() {
             checkScoreBoard();
             finalScoresArray = scoreBoard.map(msToTime);
             displayTopScore();
-            displayName();
             clearInterval(interval);
             break;
         case originTextMatch:
@@ -102,52 +83,23 @@ function reset() {
 
 //Check time against top ten scores and add to scoreboard array if true:
 function checkScoreBoard() {
-    if (finalTimeMilliseconds <= scoreBoard[0]) {
-        scoreBoard.splice(0,0, finalTimeMilliseconds);
-        highScoreNames.splice(0,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[1]) {
-        scoreBoard.splice(1,0, finalTimeMilliseconds);
-        highScoreNames.splice(1,0, addName());
-        removeExtraArrayItems();    
-    } else if (finalTimeMilliseconds <= scoreBoard[2]) {
-        scoreBoard.splice(2,0, finalTimeMilliseconds);
-        highScoreNames.splice(2,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[3]) {
-        scoreBoard.splice(3,0, finalTimeMilliseconds);
-        highScoreNames.splice(3,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[4]) {
-        scoreBoard.splice(4,0, finalTimeMilliseconds);
-        highScoreNames.splice(4,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[5]) {
-        scoreBoard.splice(5,0, finalTimeMilliseconds);
-        highScoreNames.splice(5,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[6]) {
-        scoreBoard.splice(6,0, finalTimeMilliseconds);
-        highScoreNames.splice(6,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[7]) {
-        scoreBoard.splice(7,0, finalTimeMilliseconds);
-        highScoreNames.splice(7,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[8]) {
-        scoreBoard.splice(8,0, finalTimeMilliseconds);
-        highScoreNames.splice(8,0, addName());
-        removeExtraArrayItems();
-    } else if (finalTimeMilliseconds <= scoreBoard[9]) {
-        scoreBoard.splice(9,0, finalTimeMilliseconds);
-        highScoreNames.splice(9,0, addName());
+    if (finalTimeMilliseconds <= scoreBoard[9]) {
+        //add new score time to scoreboard array
+        scoreBoard.push(finalTimeMilliseconds);
+        //sort array in ascending order
+        scoreBoard.sort(function(a, b){return a-b});
+        //get index of new score
+        var i = scoreBoard.indexOf(finalTimeMilliseconds);
+        //add new score name to highscore names array in correct position
+        highScoreNames.splice(i,0, addName());
+        console.log(highScoreNames);
         removeExtraArrayItems();
     }
 }
 
 //remove extra scores from scoreboard array
 function removeExtraArrayItems() {
-    if (scoreBoard.length > 6) {
+    if (scoreBoard.length > 10) {
         scoreBoard.pop();
         highScoreNames.pop();
     }
@@ -179,35 +131,18 @@ function msToTime(s) {
 
 //Convert high score array elements into readable strings
 function displayTopScore() {
-    let [timeOne, timeTwo, timeThree, timeFour, timeFive, timeSix, timeSeven, timeEight, timeNine, timeTen] = finalScoresArray;
     function convertTopScore(t) {
         let scoreTime = leadingZero(t[0]) + ":" + leadingZero(t[1]) + ":" + leadingZero(t[2]);
         return scoreTime;
     }
-    scoreOne.innerHTML = convertTopScore(timeOne);
-    scoreTwo.innerHTML = convertTopScore(timeTwo);
-    scoreThree.innerHTML = convertTopScore(timeThree);
-    scoreFour.innerHTML = convertTopScore(timeFour);
-    scoreFive.innerHTML = convertTopScore(timeFive);
-    scoreSix.innerHTML = convertTopScore(timeSix);
-    scoreSeven.innerHTML = convertTopScore(timeSeven);
-    scoreEight.innerHTML = convertTopScore(timeEight);
-    scoreNine.innerHTML = convertTopScore(timeNine);
-    scoreTen.innerHTML = convertTopScore(timeTen);
+
+    for (let i = 0; i < scoreArr.length; i++) {
+        scoreArr[i].innerHTML = convertTopScore(finalScoresArray[i]);
+        nameArr[i].innerHTML = highScoreNames[i]+ " ";
+      }
 }
 
-function displayName() {
-    nameOne.innerText = highScoreNames[0]+ " ";
-    nameTwo.innerText = highScoreNames[1] + " ";
-    nameThree.innerText = highScoreNames[2] + " ";
-    nameFour.innerText = highScoreNames[3] + " ";
-    nameFive.innerText = highScoreNames[4] + " ";
-    nameSix.innerText = highScoreNames[5] + " ";
-    nameSeven.innerText = highScoreNames[6] + " ";
-    nameEight.innerText = highScoreNames[7] + " ";
-    nameNine.innerText = highScoreNames[8] + " ";
-    nameTen.innerText = highScoreNames[9] + " ";
-}
+
 
 function setInitScoreboard() {
     var loadTimer = setInterval(checkScoreBoard, 500);
@@ -215,7 +150,6 @@ function setInitScoreboard() {
         var myEle = document.getElementById("ten");
         if (myEle) {
             displayTopScore();
-            displayName();
             clearInterval(loadTimer);
         }
         else {
