@@ -24,6 +24,16 @@ function leadingZero(time) {
     return time;
 }
 
+// Add leading zero to millisecs 99 or below (purely for aesthetics):
+function leadingZeroMilliSecs(time) {
+    if (time <= 99) {
+        time = "0" + time;
+    } else if (time > 99) { 
+        time = time/10;
+    }
+    return time;
+}
+
 // Run a standard minute/second/hundredths timer:
 function runTimer() {
     let currentTime = leadingZero(timer[0]) + ":" + leadingZero(timer[1]) + ":" + leadingZero(timer[2]);
@@ -132,11 +142,7 @@ function msToTime(s) {
 //Convert high score array elements into readable strings
 function displayTopScore() {
     function convertTopScore(t) {
-        let msScore = leadingZero(t[2]);
-        if (msScore <= 99) {
-            msScore = "0" + msScore;
-        }
-        let scoreTime = leadingZero(t[0]) + ":" + leadingZero(t[1]) + ":" + msScore;
+        let scoreTime = leadingZero(t[0]) + ":" + leadingZero(t[1]) + ":" + leadingZeroMilliSecs(t[2]);
         return scoreTime;
     }
 
